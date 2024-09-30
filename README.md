@@ -37,10 +37,11 @@ The system will provide:
 
 Although **MBZUAI/speecht5_tts_clartts_ar** is a state-of-the-art model for Arabic TTS, it was not selected for this project due to several reasons:
 - **Pronunciation issues**: The model had difficulty correctly pronouncing city names and artist names, which is crucial for maintaining accuracy in a museum setting.
-- **Complex integration**: The model requires custom speaker embeddings, adding unnecessary complexity for this use case.
-- **Simpler alternative**: **gTTS** provides reliable, high-quality Arabic speech synthesis and is easier to integrate, making it a more practical solution for this project.
+- **silence periods**: During testing, the model generated long periods of silence between words and sentences, which disrupted the flow of the narration and reduced the overall user experience.
+- **Slower performance**: **gTTS** is faster in generating audio output, which improves the responsiveness of the application and provides a better user experience.
+- **Simpler alternative**: **gTTS** provides reliable, faster, high-quality Arabic speech synthesis and is easier to integrate, making it a more practical solution for this project.
 
-For these reasons, **gTTS** was used for generating Arabic speech, ensuring clear and accurate narration.
+For these reasons, **gTTS** was used for generating Arabic speech, ensuring clear, accurate, and faster narration.
 
 ## Special Measures for Arabic Language Support
 
