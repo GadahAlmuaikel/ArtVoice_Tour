@@ -33,21 +33,15 @@ The system will provide:
    - **Why these models?** The Helsinki-NLP models are renowned for their accuracy in translating between **Arabic** and **English**, making them the best choice for handling multilingual input and output. This ensures the system handles both English and Arabic seamlessly.
    - **Pipeline Role**: If a user provides input in Arabic, the `opus-mt-ar-en` model translates it to English for comparison. Similarly, the `opus-mt-en-ar` model translates the English output into Arabic for Arabic-speaking users.
 
-### Why gTTS Was Chosen Over `MBZUAI/speecht5_tts_clartts_ar` for Arabic TTS
-
-Although **MBZUAI/speecht5_tts_clartts_ar** is a state-of-the-art model for Arabic TTS, it was not selected for this project due to several reasons:
-- **Pronunciation issues**: The model had difficulty correctly pronouncing city names and artist names, which is crucial for maintaining accuracy in a museum setting.
-- **silence periods**: During testing, the model generated long periods of silence between words and sentences, which disrupted the flow of the narration and reduced the overall user experience.
-- **Slower performance**: **gTTS** is faster in generating audio output, which improves the responsiveness of the application and provides a better user experience.
-- **Simpler alternative**: **gTTS** provides reliable, faster, high-quality Arabic speech synthesis and is easier to integrate, making it a more practical solution for this project.
-
-For these reasons, **gTTS** was used for generating Arabic speech, ensuring clear, accurate, and faster narration.
-
 ## Special Measures for Arabic Language Support
 
 1. **Arabic Text-to-Speech (TTS)**:
-   - **Why gTTS?** Since Hugging Face TTS models do not fully support Arabic, the project uses **Google Text-to-Speech (gTTS)** for generating Arabic audio. gTTS produces high-quality Arabic speech, ensuring that Arabic-speaking users can enjoy the narration in their own language.
-   - **How it works**: After translation to Arabic, **gTTS** generates speech in **Modern Standard Arabic**, making it accessible for a broad audience.
+   - **Why gTTS?** Although **MBZUAI/speecht5_tts_clartts_ar** is a state-of-the-art model for Arabic TTS, it was not selected for this project due to several reasons:
+     - **Pronunciation issues**: The model had difficulty correctly pronouncing city names and artist names, which is crucial for maintaining accuracy in a museum setting.
+     - **Silence periods**: During testing, the model generated long periods of silence between words and sentences, which disrupted the flow of the narration and reduced the overall user experience.
+     - **Slower performance**: **gTTS** is faster in generating audio output, improving the responsiveness of the application and providing a smoother user experience.
+     - **Simpler alternative**: **gTTS** provides reliable, faster, high-quality Arabic speech synthesis and is easier to integrate, making it a more practical solution for this project.
+   - **How it works**: After translation to Arabic, **gTTS** generates speech in **Modern Standard Arabic**, ensuring that Arabic-speaking users can enjoy clear, accurate, and fast narration of the artwork stories.
 
 2. **Language Detection**:
    - The system automatically detects whether the input is in **English or Arabic** using **language detection**. This ensures seamless processing for users without requiring them to manually select their language.
