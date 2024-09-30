@@ -1,1 +1,68 @@
-# ArtVoice_Tour
+# ArtVoice Tour: Virtual Art Museum with Image and Text-Based Art Retrieval
+
+## Project Overview
+The **ArtVoice Tour** is an interactive **Virtual Art Museum**, where users can explore famous artworks by:
+1. **Uploading an image** of an artwork, or
+2. **Entering a description** of a painting.
+
+The system will provide:
+- The **best matching artwork** based on the uploaded image or description.
+- A detailed **text description** of the artwork, including its **title** and **story**.
+- A **voice narration** of the story, available in both **English** and **Arabic**.
+
+## Expected Outputs
+- **Image Matching**: When an image is uploaded, the system retrieves the best matching painting based on visual similarity.
+- **Description Matching**: When a description is entered, the system performs a **semantic similarity search** and returns the closest matching artwork.
+- **Voice Narration**: The story behind each artwork is narrated in either **English** or **Arabic** based on the user’s language preference.
+
+## Model Choices and Pipeline Explanations
+
+1. **CLIP Model (`openai/clip-vit-base-patch32`)**:
+   - **Why this model?** CLIP is ideal for **image-to-image matching** because it generates rich embeddings for images. This model is used to compare the uploaded image with the stored images of famous artworks in the dataset. 
+   - **Pipeline Role**: CLIP processes the uploaded image and compares it to the dataset images, calculating similarity scores. The system then selects the best matching artwork based on these visual features.
+
+2. **Sentence-Transformer (`sentence-transformers/all-MiniLM-L6-v2`)**:
+   - **Why this model?** MiniLM is optimized for **semantic similarity** and provides fast and efficient sentence embeddings. It’s perfect for comparing user-provided text descriptions with the artwork descriptions in the dataset.
+   - **Pipeline Role**: This model encodes both the input description and the dataset descriptions into vectors. It then computes cosine similarity to find the closest match based on textual similarity.
+
+3. **Text-to-Speech (TTS) Model (`kakao-enterprise/vits-ljs`)**:
+   - **Why this model?** VITS-LJS is chosen for its **high-quality, natural-sounding English speech synthesis**. It provides an engaging experience for English-speaking users who want to listen to the story behind the artwork.
+   - **Pipeline Role**: The English story behind the artwork is converted into audio using this model, delivering a smooth and human-like narration.
+
+4. **Translation Models (`Helsinki-NLP/opus-mt-ar-en` and `opus-mt-en-ar`)**:
+   - **Why these models?** The Helsinki-NLP models are renowned for their accuracy in translating between **Arabic** and **English**, making them the best choice for handling multilingual input and output. This ensures the system handles both English and Arabic seamlessly.
+   - **Pipeline Role**: If a user provides input in Arabic, the `opus-mt-ar-en` model translates it to English for comparison. Similarly, the `opus-mt-en-ar` model translates the English output into Arabic for Arabic-speaking users.
+
+### Why gTTS Was Chosen Over `MBZUAI/speecht5_tts_clartts_ar` for Arabic TTS
+
+Although **MBZUAI/speecht5_tts_clartts_ar** is a state-of-the-art model for Arabic TTS, it was not selected for this project due to several reasons:
+- **Pronunciation issues**: The model had difficulty correctly pronouncing city names and artist names, which is crucial for maintaining accuracy in a museum setting.
+- **Complex integration**: The model requires custom speaker embeddings, adding unnecessary complexity for this use case.
+- **Simpler alternative**: **gTTS** provides reliable, high-quality Arabic speech synthesis and is easier to integrate, making it a more practical solution for this project.
+
+For these reasons, **gTTS** was used for generating Arabic speech, ensuring clear and accurate narration.
+
+## Special Measures for Arabic Language Support
+
+1. **Arabic Text-to-Speech (TTS)**:
+   - **Why gTTS?** Since Hugging Face TTS models do not fully support Arabic, the project uses **Google Text-to-Speech (gTTS)** for generating Arabic audio. gTTS produces high-quality Arabic speech, ensuring that Arabic-speaking users can enjoy the narration in their own language.
+   - **How it works**: After translation to Arabic, **gTTS** generates speech in **Modern Standard Arabic**, making it accessible for a broad audience.
+
+2. **Language Detection**:
+   - The system automatically detects whether the input is in **English or Arabic** using **language detection**. This ensures seamless processing for users without requiring them to manually select their language.
+
+3. **Translation Pipeline**:
+   - The system incorporates both **Arabic-to-English** and **English-to-Arabic** translation models. This ensures users can interact with the system in **Arabic**, and receive both text and audio outputs in Arabic if preferred.
+
+4. **Right-to-Left (RTL) Text Display**:
+   - Special care has been taken to display Arabic text in **right-to-left (RTL)** format. HTML and CSS styling ensure that Arabic text is presented clearly and legibly, maintaining a user-friendly experience for Arabic-speaking users.
+
+## Usage
+1. Upload an image of a famous artwork or enter a description of the painting.
+2. Select the desired language for narration (English or Arabic).
+3. View the best matching artwork, read its description, and listen to the story behind it.
+
+## Hugging Face Space
+The project is hosted on Hugging Face Spaces and can be accessed here:
+
+[**ArtVoice Tour on Hugging Face**](https://huggingface.co/spaces/ghadaAlmuaikel/ArtVoice_Tour)
