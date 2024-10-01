@@ -61,3 +61,9 @@ The system will provide:
 The project is hosted on Hugging Face Spaces and can be accessed here:
 
 [**ArtVoice Tour on Hugging Face**](https://huggingface.co/spaces/ghadaAlmuaikel/ArtVoice_Tour)
+
+## Video Walkthrough of the Python Notebook
+An uploaded video walkthrough of the Python notebook explaining the project step-by-step is available. You can view the video by clicking the following link:
+
+[Click here to Watch the video walkthrough](https://youtu.be/cglYMP2lMqQ)
+
